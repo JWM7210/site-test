@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Super Basic Pitfall!</title>
+  <style>
+    canvas { background: #222; display: block; margin: 30px auto; }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="800" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Player properties - simple circle
+    let player = {
+      x: 100,
+      y: 350,
+      radius: 18,
+      color: '#fff',
+      vx: 0,
+      vy: 0,
+      onGround: true
+    };
+
+    // Obstacles and collectibles
+    let obstacles = [
+      {x: 300, y: 370, width: 80, height: 18, color: 'brown'}, // log
+      {x: 480, y: 370, width: 60, height: 18, color: 'green'}, // snake
+      {x: 650, y: 370, width: 80, height: 10, color: 'black'}  // pit
+    ];
+
+    let treasures = [
+      {x: 750, y: 320, width: 18, height: 18, color: 'gold'}
+    ];
+
+    // Gravity and movement
+    const gravity = 1;
+    const jumpStrength = -15;
+    const moveSpeed = 6;
+
+    function drawPlayer() {
+      ctx.beginPath();
+      ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+      ctx.fillStyle = player.color;
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function drawObstacles() {
+      obstacles.forEach(obj => {
+        ctx.fillStyle = obj.color;
+        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+      });
+    }
+
+    function drawTreasures() {
+      treasures.forEach(obj => {
+        ctx.fillStyle = obj.color;
+        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+      });
+    }
+
+    function drawGround() {
+      ctx.fillStyle = "#444";
+      ctx.fillRect(0, 370, canvas.width, 30);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawGround();
+      drawPlayer();
+      drawObstacles();
+      drawTreasures();
+    }
+
+    function updatePlayer() {
+      player.x += player.vx;
+      player.y += player.vy;
+
+      // Gravity
+      if (!player.onGround) {
+        player.vy += gravity;
+      }
+
+      // Ground collision
+      if (player.y + player.radius >= 370) {
+        player.y = 370 - player.radius;
+        player.vy = 0;
+        player.onGround = true;
+      } else {
+        player.onGround = false;
+      }
+    }
+
+    // Simple collision with obstacles (horizontal only)
+    function checkCollisions() {
+      obstacles.forEach(obj => {
+        // Rectangle collision
+        if (
+          player.x + player.radius > obj.x &&
+          player.x - player.radius < obj.x + obj.width &&
+          player.y + player.radius > obj.y &&
+          player.y - player.radius < obj.y + obj.height
+        ) {
+          // Reset player position
+          player.x = 100;
+          player.y = 350;
+          player.vx = 0;
+          player.vy = 0;
+        }
+      });
+
+      treasures.forEach(obj => {
+        if (
+          player.x + player.radius > obj.x &&
+          player.x - player.radius < obj.x + obj.width &&
+          player.y + player.radius > obj.y &&
+          player.y - player.radius < obj.y + obj.height
+        ) {
+          alert("You got the treasure! Game over.");
+          document.location.reload();
+        }
+      });
+    }
+
+    function gameLoop() {
+      updatePlayer();
+      checkCollisions();
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+
+    // Controls
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') player.vx = -moveSpeed;
+      if (e.key === 'ArrowRight') player.vx = moveSpeed;
+      if (e.key === ' ' && player.onGround) {
+        player.vy = jumpStrength;
+        player.onGround = false;
+      }
+    });
+
+    window.addEventListener('keyup', function(e) {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') player.vx = 0;
+    });
+
+    // Start the game
+    gameLoop();
+  </script>
+</body>
+</html>
