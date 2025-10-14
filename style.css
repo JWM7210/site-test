@@ -38,7 +38,7 @@ div {
   max-width: 800px;
   padding: 12px;
   text-align: center;
-  background: linear-gradient(135deg, #FFA500 50%, #cfdef3 50%;
+  background: linear-gradient(135deg, #000000 50%, #FFA500 50%;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(44, 62, 80, 0.05);
 }
