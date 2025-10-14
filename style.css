@@ -22,7 +22,7 @@ p {
 }
 
 a {
-  color: #3a86ff;
+  color: #FFFFFF;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.2s, box-shadow 0.2s;
@@ -38,7 +38,7 @@ div {
   max-width: 800px;
   padding: 12px;
   text-align: center;
-  background: #ff0000;
+  background: linear-gradient(135deg, #FFA500 50%, #cfdef3 50%;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(44, 62, 80, 0.05);
 }
