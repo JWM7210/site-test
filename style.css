@@ -13,6 +13,20 @@ h1 {
   color: #26547c;
   text-shadow: 1px 1px 2px #a9c9ff;
 }
+h3 {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 3em;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 2px #a9c9ff;
+}
+h2 {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 3em;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 2px #a9c9ff;
+}
 
 p {
   text-align: center;
