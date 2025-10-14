@@ -8,8 +8,8 @@ body {
 
 h1 {
   text-align: center;
-  margin-top: 40px;
-  font-size: 2.5em;
+  margin-top: 50px;
+  font-size: 3em;
   color: #26547c;
   text-shadow: 1px 1px 2px #a9c9ff;
 }
@@ -35,7 +35,7 @@ a:hover {
 
 div {
   margin: 12px auto;
-  max-width: 350px;
+  max-width: 800px;
   padding: 12px;
   text-align: center;
   background: #fff;
