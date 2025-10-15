@@ -73,4 +73,13 @@ div {
   p {
     font-size: 1em;
   }
+  #only {
+  margin: 12px auto;
+  max-width: 800px;
+  padding: 12px;
+  text-align: center;
+  background: #FFD700;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.05);
+}
 }
