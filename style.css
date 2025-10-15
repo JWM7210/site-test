@@ -73,7 +73,7 @@ div {
   p {
     font-size: 1em;
   }
-  #only {
+  .only {
   margin: 12px auto;
   max-width: 800px;
   padding: 12px;
