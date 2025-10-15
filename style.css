@@ -82,6 +82,7 @@ div {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(44, 62, 80, 0.05);
 }
+}
   #m3 {
   margin: 12px auto;
   max-width: 800px;
@@ -91,3 +92,14 @@ div {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(44, 62, 80, 0.05);
   }
+  #img {
+  margin: 12px 0 12px auto; /* pushes it to the right */
+  max-width: 300px; /* smaller so it looks like a sidebar */
+  padding: 12px;
+  text-align: center;
+  background: linear-gradient(140deg, black 50%, #FFA500 50%);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+  display: block;
+}
+
