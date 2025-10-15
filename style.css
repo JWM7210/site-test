@@ -93,8 +93,8 @@ div {
   box-shadow: 0 4px 12px rgba(44, 62, 80, 0.05);
   }
   #img {
-  margin: 12px 0 12px auto; /* pushes it to the right */
-  max-width: 300px; /* smaller so it looks like a sidebar */
+  margin: 12px auto 12px 0; 
+  max-width: 300px;
   padding: 12px;
   text-align: center;
   background: linear-gradient(140deg, black 50%, #FFA500 50%);
@@ -102,4 +102,5 @@ div {
   box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
   display: block;
 }
+
 
