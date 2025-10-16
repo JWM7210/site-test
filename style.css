@@ -102,7 +102,16 @@ div {
   display: block;
 }
   #img {
-    float: left;
-  }
+    float: left; 
+}
+  #logo {
+  max-width: 1000px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(44, 62, 80, 0.5);
+  display: block;
+  }    
+    
 
 
