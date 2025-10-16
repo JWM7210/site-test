@@ -96,7 +96,7 @@ div {
   max-width: 800px;
   padding: 12px;
   text-align: center;
-  background: linear-gradient(140deg, black 50%, #FFA500 50%);
+  background: linear-gradient(140deg, black 100%, #FFA500 0%);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
   display: block;
