@@ -116,26 +116,37 @@
     </div>
   </div>
 
-  <script>
-    const boxes = document.querySelectorAll('.box');
+ <script>
+const boxes = document.querySelectorAll('.box');
 
-    window.addEventListener('scroll', () => {
-      const center = window.innerHeight / 2;
+window.addEventListener('scroll', () => {
+  const center = window.innerHeight / 2;
 
-      boxes.forEach(box => {
-        const rect = box.getBoundingClientRect();
-        const boxCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(center - boxCenter);
+  boxes.forEach(box => {
+    const rect = box.getBoundingClientRect();
+    const boxCenter = rect.top + rect.height / 2;
+    const distance = Math.abs(center - boxCenter);
 
-        if (distance < 100) {
-          box.classList.add('active');
-          box.classList.remove('inactive');
-        } else {
-          box.classList.remove('active');
-          box.classList.add('inactive');
-        }
-      });
-    });
-  </script>
+    // Max scale when exactly in center
+    const maxScale = 1.3;
+    const minScale = 0.8;
+    const maxDistance = 300; // distance at which box is minScale
+
+    // scale formula: closer to center = bigger
+    let scale = maxScale - (distance / maxDistance) * (maxScale - minScale);
+    if (scale < minScale) scale = minScale;
+
+    box.style.transform = `scale(${scale})`;
+
+    // optional: fade out with distance
+    let opacity = 1 - (distance / (maxDistance * 1.2));
+    if (opacity < 0.3) opacity = 0.3;
+    box.style.opacity = opacity;
+
+    // bring the active one to front
+    box.style.zIndex = (scale === maxScale) ? 2 : 1;
+  });
+});
+</script>
 </body>
 </html>
