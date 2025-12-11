@@ -70,6 +70,27 @@
       <h3>Made by jwm7210 on GitHub</h3>
       <h4>I may or may not add a search bar.</h4>
     </div>
+    <div class="box>
+      <button id="openFile">Eaglercraft ABOUT:BLANK</button>
+
+<script>
+document.getElementById("openFile").onclick = async () => {
+    // URL for the raw HTML file
+    const url = "eagl.html";
+
+    // Fetch the file
+    const html = await fetch(url).then(r => r.text());
+
+    // Open a new blank tab
+    const win = window.open("about:blank", "_blank");
+
+    // Inject the HTML into it
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+};
+</script>
+
 
     <div class="box">
       <a href="https://jwm7210.github.io/doom/">Doom Game (arrow keys to move, ctrl to shoot)</a>
