@@ -52,6 +52,19 @@
     a:hover {
       text-decoration: underline;
     }
+
+    /* small helper for blinking text used on the page */
+    .blinking-text {
+      animation: blink 1.2s steps(2, start) infinite;
+    }
+
+    @keyframes blink {
+      to { visibility: hidden; }
+    }
+
+    /* ensure anchor lists inside boxes are readable */
+    .box a { display: block; margin: 4px 0; }
+    .small-link { font-size: 0.7em; }
   </style>
 </head>
 <body>
@@ -70,48 +83,10 @@
       <h3>Made by jwm7210 on GitHub</h3>
       <h4>I may or may not add a search bar.</h4>
     </div>
-   <div class="box">
-  <button id="openFile">Eaglercraft ABOUT:BLANK</button>
-</div>
 
-<script>
-document.getElementById("openFile").addEventListener("click", () => {
-  // Correct raw URL (no refs/heads)
-  const url = "https://raw.githubusercontent.com/JWM7210/site-test/main/eagl.html";
-
-  // Open the new window synchronously so the browser treats it as a user gesture
-  const win = window.open("about:blank", "_blank");
-
-  if (!win) {
-    alert("Popup blocked. Allow popups for this site and try again.");
-    return;
-  }
-
-  // Fetch and inject
-  fetch(url)
-    .then(response => {
-      if (!response.ok) throw new Error(response.status + " " + response.statusText);
-      return response.text();
-    })
-    .then(html => {
-      // Optional: set a base so relative URLs resolve to your repo's raw root
-      const baseHref = "https://raw.githubusercontent.com/JWM7210/site-test/main/";
-      const baseTag = `<base href="${baseHref}">`;
-
-      win.document.open();
-      win.document.write(baseTag + html);
-      win.document.close();
-    })
-    .catch(err => {
-      win.document.open();
-      win.document.write(`<pre style="color:red">Error loading file: ${err.message}</pre>`);
-      win.document.close();
-    });
-});
-</script>
-  </div>
-
-
+    <div class="box">
+      <button id="openFile">Eaglercraft ABOUT:BLANK</button>
+    </div>
 
     <div class="box">
       <a href="https://jwm7210.github.io/doom/">Doom Game (arrow keys to move, ctrl to shoot)</a>
@@ -129,16 +104,17 @@ document.getElementById("openFile").addEventListener("click", () => {
     <div class="box"><a href="timeshoot.html">Time Shooter 3</a></div>
 
     <div class="box">
-      <a href="mario.html">Super Mario World</a><br>
-      <a href="super-mario-bros.html">Super Mario Bros (1985)</a><br>
-      <a href="m3.html">Super Mario Bros 2</a><br>
+      <a href="mario.html">Super Mario World</a>
+      <a href="super-mario-bros.html">Super Mario Bros (1985)</a>
+      <a href="m3.html">Super Mario Bros 2</a>
       <a href="m2.html">Super Mario Bros 3</a>
     </div>
 
     <div class="box">
       <a href="recoil.html">Recoil</a>
     </div>
-<div class="box"><a href="#hotline%20miami"></a></div>
+
+    <div class="box"><a href="#hotline%20miami">Hotline Miami</a></div>
     <div class="box"><a href="slope.html">Slope</a></div>
     <div class="box"><a href="Metroid.html">Metroid</a></div>
     <div class="box"><a href="smash.html">Smash Karts</a></div>
@@ -150,12 +126,10 @@ document.getElementById("openFile").addEventListener("click", () => {
     <div class="box"><a href="alone.html">Alone in the Dark</a></div>
     <div class="box"><a href="bitlife.html">BitLife Life Simulator</a></div>
     <div class="box"><a href="10bullets.html">10 Bullets</a></div>
-    <div class="box"><a href="final12.html">Final Fantasy I & II</a></div>
+    <div class="box"><a href="final12.html">Final Fantasy I &amp; II</a></div>
     <div class="box"><a href="eagl.html">Eaglercraft</a></div>
     <div class="box"><a href="sinistar.html">Sinistar Arcade Game (First Jumpscare EVER)</a></div>
     <div class="box"><a href="cupcake.html">Papa's Cupcakeria</a></div>
-  
-
 
     <div class="box">
       <p>
@@ -164,36 +138,90 @@ document.getElementById("openFile").addEventListener("click", () => {
         I’ll add things after school.
       </p>
     </div>
-    <div><a href="https://www.youtube.com/watch?v=EIUPoPfrkqI">Hmmmmm...</a></div>
+
+    <div class="box small-link">
+      <a href="https://www.youtube.com/watch?v=EIUPoPfrkqI">Hmmmmm...</a>
+    </div>
   </div>
 
   <script>
-    const boxes = document.querySelectorAll('.box');
+    // "Open raw file in a new window" button
+    (function () {
+      const btn = document.getElementById("openFile");
+      if (!btn) return;
 
-    window.addEventListener('scroll', () => {
-      const center = window.innerHeight / 2;
+      btn.addEventListener("click", () => {
+        // raw URL to the file in the repo (no refs/heads)
+        const url = "https://raw.githubusercontent.com/JWM7210/site-test/main/eagl.html";
 
-      boxes.forEach(box => {
-        const rect = box.getBoundingClientRect();
-        const boxCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(center - boxCenter);
+        // Open the new window synchronously so the browser treats it as a user gesture
+        const win = window.open("about:blank", "_blank");
 
-        const maxScale = 1.3;
-        const minScale = 0.8;
-        const maxDistance = 300;
+        if (!win) {
+          alert("Popup blocked. Allow popups for this site and try again.");
+          return;
+        }
 
-        let scale = maxScale - (distance / maxDistance) * (maxScale - minScale);
-        if (scale < minScale) scale = minScale;
+        // Fetch and inject
+        fetch(url)
+          .then(response => {
+            if (!response.ok) throw new Error(response.status + " " + response.statusText);
+            return response.text();
+          })
+          .then(html => {
+            // set a base so relative URLs resolve to your repo's raw root
+            const baseHref = "https://raw.githubusercontent.com/JWM7210/site-test/main/";
+            const baseTag = `<base href="${baseHref}">`;
 
-        box.style.transform = `scale(${scale})`;
-
-        let opacity = 1 - (distance / (maxDistance * 1.2));
-        if (opacity < 0.3) opacity = 0.3;
-        box.style.opacity = opacity;
-
-        box.style.zIndex = (scale === maxScale) ? 2 : 1;
+            win.document.open();
+            win.document.write(baseTag + html);
+            win.document.close();
+          })
+          .catch(err => {
+            win.document.open();
+            win.document.write(`<pre style="color:red">Error loading file: ${err.message}</pre>`);
+            win.document.close();
+          });
       });
-    });
+    })();
+  </script>
+
+  <script>
+    // Scroll scaling + opacity effect for .box elements
+    (function () {
+      const boxes = document.querySelectorAll('.box');
+
+      function updateBoxes() {
+        const center = window.innerHeight / 2;
+
+        boxes.forEach(box => {
+          const rect = box.getBoundingClientRect();
+          const boxCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(center - boxCenter);
+
+          const maxScale = 1.3;
+          const minScale = 0.8;
+          const maxDistance = 300;
+
+          let scale = maxScale - (distance / maxDistance) * (maxScale - minScale);
+          if (scale < minScale) scale = minScale;
+
+          box.style.transform = `scale(${scale})`;
+
+          let opacity = 1 - (distance / (maxDistance * 1.2));
+          if (opacity < 0.3) opacity = 0.3;
+          box.style.opacity = opacity;
+
+          // use a threshold instead of strict equality for float comparisons
+          box.style.zIndex = (Math.abs(scale - maxScale) < 0.02) ? 2 : 1;
+        });
+      }
+
+      window.addEventListener('scroll', updateBoxes);
+      window.addEventListener('resize', updateBoxes);
+      // initial pass
+      updateBoxes();
+    })();
   </script>
 </body>
 </html>
