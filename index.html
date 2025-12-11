@@ -70,27 +70,46 @@
       <h3>Made by jwm7210 on GitHub</h3>
       <h4>I may or may not add a search bar.</h4>
     </div>
-    <div class="box">
-      <button id="openFile">Eaglercraft ABOUT:BLANK</button>
+   <div class="box">
+  <button id="openFile">Eaglercraft ABOUT:BLANK</button>
+</div>
 
 <script>
-document.getElementById("openFile").onclick = async () => {
-    // URL for the raw HTML file
-    const url = "https://raw.githubusercontent.com/JWM7210/site-test/refs/heads/main/eagl.html";
+document.getElementById("openFile").addEventListener("click", () => {
+  // Correct raw URL (no refs/heads)
+  const url = "https://raw.githubusercontent.com/JWM7210/site-test/main/eagl.html";
 
-    // Fetch the file
-    const html = await fetch(url).then(r => r.text());
+  // Open the new window synchronously so the browser treats it as a user gesture
+  const win = window.open("about:blank", "_blank");
 
-    // Open a new blank tab
-    const win = window.open("about:blank", "_blank");
+  if (!win) {
+    alert("Popup blocked. Allow popups for this site and try again.");
+    return;
+  }
 
-    // Inject the HTML into it
-    win.document.open();
-    win.document.write(html);
-    win.document.close();
-};
+  // Fetch and inject
+  fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error(response.status + " " + response.statusText);
+      return response.text();
+    })
+    .then(html => {
+      // Optional: set a base so relative URLs resolve to your repo's raw root
+      const baseHref = "https://raw.githubusercontent.com/JWM7210/site-test/main/";
+      const baseTag = `<base href="${baseHref}">`;
+
+      win.document.open();
+      win.document.write(baseTag + html);
+      win.document.close();
+    })
+    .catch(err => {
+      win.document.open();
+      win.document.write(`<pre style="color:red">Error loading file: ${err.message}</pre>`);
+      win.document.close();
+    });
+});
 </script>
-    </div>
+  </div>
 
 
 
