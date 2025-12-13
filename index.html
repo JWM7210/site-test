@@ -84,9 +84,7 @@
       <h4>I may or may not add a search bar.</h4>
     </div>
 
-    <div class="box">
-      <button id="openFile">Eaglercraft ABOUT:BLANK</button>
-    </div>
+ 
 
     <div class="box">
       <a href="https://jwm7210.github.io/doom/">Doom Game (arrow keys to move, ctrl to shoot)</a>
@@ -144,47 +142,7 @@
     </div>
   </div>
 
-  <script>
-    // "Open raw file in a new window" button
-    (function () {
-      const btn = document.getElementById("openFile");
-      if (!btn) return;
 
-      btn.addEventListener("click", () => {
-        // raw URL to the file in the repo (no refs/heads)
-        const url = "https://raw.githubusercontent.com/JWM7210/site-test/main/eagl.html";
-
-        // Open the new window synchronously so the browser treats it as a user gesture
-        const win = window.open("about:blank", "_blank");
-
-        if (!win) {
-          alert("Popup blocked. Allow popups for this site and try again.");
-          return;
-        }
-
-        // Fetch and inject
-        fetch(url)
-          .then(response => {
-            if (!response.ok) throw new Error(response.status + " " + response.statusText);
-            return response.text();
-          })
-          .then(html => {
-            // set a base so relative URLs resolve to your repo's raw root
-            const baseHref = "https://raw.githubusercontent.com/JWM7210/site-test/main/";
-            const baseTag = `<base href="${baseHref}">`;
-
-            win.document.open();
-            win.document.write(baseTag + html);
-            win.document.close();
-          })
-          .catch(err => {
-            win.document.open();
-            win.document.write(`<pre style="color:red">Error loading file: ${err.message}</pre>`);
-            win.document.close();
-          });
-      });
-    })();
-  </script>
 
   <script>
     // Scroll scaling + opacity effect for .box elements
