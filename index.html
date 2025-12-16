@@ -71,6 +71,15 @@
   <div class="box">
   <h1>James's Games</h1>
   </div>
+<input type="text" id="search" placeholder="Search...">
+
+<ul id="list">
+  <li><a href = aboutblank.html">About Blank</a></li>
+  <li><a href="drive.html">Drive Mad</a></li>
+  <li><a href="tetris.html">Tetris</a></li>
+  <li><a href="eagl.html">Eaglercraft</a></li>
+</ul>
+
 
 
     <div class="box">
@@ -184,5 +193,18 @@
       updateBoxes();
     })();
   </script>
+  <script>
+  const search = document.getElementById("search");
+  const items = document.querySelectorAll("#list li");
+
+  search.addEventListener("input", () => {
+    const value = search.value.toLowerCase();
+    items.forEach(item => {
+      item.style.display = item.textContent.toLowerCase().includes(value)
+        ? ""
+        : "none";
+    });
+  });
+</script>
 </body>
 </html>
