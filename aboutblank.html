@@ -194,7 +194,7 @@ document.getElementById("open").addEventListener("click", () => {
     })
     .then(html => {
       // Optional: set a base so relative URLs resolve to your repo's raw root
-      const baseHref = "https://raw.githubusercontent.com/JWM7210/site-test/main/drive.html";
+      const baseHref = "https://raw.githubusercontent.com/JWM7210/site-test/main/";
       const baseTag = `<base href="${baseHref}">`;
 
       win.document.open();
@@ -215,7 +215,7 @@ document.getElementById("open").addEventListener("click", () => {
 <script>
 document.getElementById("ope").addEventListener("click", () => {
   // Correct raw URL (no refs/heads)
-  const url = "https://raw.githubusercontent.com/JWM7210/site-test/main/Adventure.html";
+  const url = "https://raw.githubusercontent.com/JWM7210/site-test/main/drive.html";
 
   // Open the new window synchronously so the browser treats it as a user gesture
   const win = window.open("about:blank", "_blank");
